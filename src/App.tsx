@@ -17,7 +17,11 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={
           <>
-            <CustomCarousel />
+            
+              <div className="mt-22">
+                <CustomCarousel />
+              </div>
+            
             <SectionBloc />
             <Portfolio />
             <WebDevelopment />
