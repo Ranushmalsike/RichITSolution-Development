@@ -1,38 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { services } from "../config/serviceDetail";
 
-const services = [
-  {
-    title: "Web Development",
-    description: "We build high-quality, scalable websites using the latest technologies.",
-    image: "/image/web-dev.svg",
-  },
-  {
-    title: "Mobile App Development",
-    description: "Create feature-rich mobile apps for iOS and Android platforms.",
-    image: "/image/app-dev.svg",
-  },
-  {
-    title: "UI/UX Design",
-    description: "Stunning designs to enhance user experience and engagement.",
-    image: "/image/ui-ux.svg",
-  },
-  {
-    title: "Digital Marketing",
-    description: "SEO, PPC, and social media marketing to grow your online presence.",
-    image: "/image/marketing.svg",
-  },
-  {
-    title: "Cloud Solutions",
-    description: "Scalable and secure cloud computing services tailored for businesses.",
-    image: "/image/cloud.svg",
-  },
-  {
-    title: "IT Consulting",
-    description: "Strategic IT solutions to optimize and modernize your business.",
-    image: "/image/consulting.svg",
-  },
-];
 
 const Services: React.FC = () => {
   return (
@@ -52,6 +21,10 @@ const Services: React.FC = () => {
             key={index}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, y: 50 }} // Start with the card slightly lower and hidden
+            whileInView={{ opacity: 1, y: 0 }} // Fade in and move to its normal position when in view
+            viewport={{ once: true, amount: 0.3 }} // Trigger animation when 30% of the card is in view
+            transition={{ duration: 0.5 }}
             className="bg-white shadow-lg rounded-2xl p-6 text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
           >
             <img src={service.image} alt={service.title} className="h-24 mx-auto mb-4" />
@@ -65,6 +38,25 @@ const Services: React.FC = () => {
           </motion.div>
         ))}
       </div>
+            {/* Contact Us Section */}
+      <motion.div 
+        className="text-center mt-6 p-6 bg-blue/50 text-white rounded-lg"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
+        viewport={{ once: true }}
+      >
+        <h3 className="text-xl font-bold">Need a Service? Contact Us!</h3>
+        <p className="text-lg mt-2">
+          Let’s build something amazing together. Reach out to us for a <strong>free consultation</strong>!
+        </p>
+        <a
+          href="/contactus"
+          className="mt-4 inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition-all duration-300"
+        >
+          Contact Us
+        </a>
+      </motion.div>
     </div>
   );
 };

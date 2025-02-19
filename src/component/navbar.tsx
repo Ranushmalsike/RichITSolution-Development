@@ -1,58 +1,99 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { companyInfo } from "../config/CompanyDetails";
 
-const Navbar: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const navigation = [
+  { name: "Home", href: "/", current: true },
+  { name: "About", href: "/about", current: false },
+  { name: "Services", href: "/service", current: false },
+  { name: "Contact", href: "/contactus", current: false },
+];
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(" ");
+}
 
+const Navbar = () => {
   return (
-    <nav className="fixed top-0 left-0 w-full bg-white shadow-lg z-50">
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        {/* Logo */}
-        <div className="text-2xl font-bold text-gray-800">
-          <img src={companyInfo.imagePath} alt="Logo" className="h-15 w-auto" />
-        </div>
-
-        {/* Hamburger Menu for Mobile */}
-        <div className="block lg:hidden">
-          <button onClick={toggleMenu} className="text-gray-700 focus:outline-none">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-            </svg>
-          </button>
-        </div>
-
-        {/* Navigation Links */}
-        <div className={`${isMenuOpen ? "block" : "hidden"} lg:flex lg:items-center lg:space-x-6 w-full lg:w-auto mt-4 lg:mt-0`}>
-          <Link to="/" className="block text-gray-700 hover:text-blue-500 transition duration-300 py-2 lg:py-0">
-            Home
-          </Link>
-          <Link to="/about" className="block text-gray-700 hover:text-blue-500 transition duration-300 py-2 lg:py-0">
-            About
-          </Link>
-          <Link to="/service" className="block text-gray-700 hover:text-blue-500 transition duration-300 py-2 lg:py-0">
-            Services
-          </Link>
-          <Link to="/contactus" className="block text-gray-700 hover:text-blue-500 transition duration-300 py-2 lg:py-0">
-            Contact
-          </Link>
-        </div>
-
-        {/* Call to Action Button (Hidden on Mobile) */}
-        <div className="hidden lg:block">
-          <Link to="/signup" className="p-4 text-gray-700 hover:text-blue-500 transition duration-300 py-2 lg:py-0">
-            Sign In
-          </Link>
-          <Link to="/signin" className="text-gray-700 hover:text-blue-500 transition duration-300 py-2 lg:py-0">
-            Sign Up
-          </Link>
+    <Disclosure as="nav" className="bg-gray-800 fixed w-full z-10 top-0 left-0">
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div className="relative flex h-16 items-center justify-between">
+          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+            {/* Mobile Menu Button */}
+            <DisclosureButton className="p-2 text-gray-400 hover:bg-gray-700 hover:text-white">
+              {({ open }) => (
+                open ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />
+              )}
+            </DisclosureButton>
+          </div>
+          {/* Logo */}
+          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+            <div className="flex shrink-0 items-center">
+              <img src={companyInfo.imagePath} alt="Logo" className="h-8 w-auto" />
+            </div>
+            <div className="hidden sm:ml-6 sm:block">
+              <div className="flex space-x-4">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className={classNames(
+                      item.current ? "bg-gray-900 text-white" : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      "rounded-md px-3 py-2 text-sm font-medium"
+                    )}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+          {/* Profile Dropdown */}
+          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <Menu as="div" className="relative ml-3">
+              <MenuButton className="flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" className="h-8 w-8 rounded-full" alt="Profile" />
+              </MenuButton>
+              <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right bg-white shadow-lg rounded-md py-1">
+                <MenuItem>
+                  {({ active }) => (
+                    <Link to="/profile" className={classNames(active ? "bg-gray-100" : "", "block px-4 py-2 text-sm text-gray-700")}>
+                      Your Profile
+                    </Link>
+                  )}
+                </MenuItem>
+                <MenuItem>
+                  {({ active }) => (
+                    <Link to="/settings" className={classNames(active ? "bg-gray-100" : "", "block px-4 py-2 text-sm text-gray-700")}>
+                      Settings
+                    </Link>
+                  )}
+                </MenuItem>
+                <MenuItem>
+                  {({ active }) => (
+                    <Link to="/logout" className={classNames(active ? "bg-gray-100" : "", "block px-4 py-2 text-sm text-gray-700")}>
+                      Sign out
+                    </Link>
+                  )}
+                </MenuItem>
+              </MenuItems>
+            </Menu>
+          </div>
         </div>
       </div>
-    </nav>
+      {/* Mobile Menu Panel */}
+      <DisclosurePanel className="sm:hidden">
+        <div className="space-y-1 px-2 pt-2 pb-3">
+          {navigation.map((item) => (
+            <DisclosureButton key={item.name} as={Link} to={item.href} className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
+              {item.name}
+            </DisclosureButton>
+          ))}
+        </div>
+      </DisclosurePanel>
+    </Disclosure>
   );
 };
 
