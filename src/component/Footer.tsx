@@ -23,6 +23,9 @@ const Footer: React.FC = () => {
              <p className="text-gray-400 mt-2">
               {companyInfo.email}
             </p>
+            <p className="text-gray-400 mt-2">
+              {companyInfo.BP}
+            </p>
           </div>
 
           {/* Quick Links */}
