@@ -40,12 +40,12 @@ const SectionBloc: React.FC = () => {
                 alt={service.title}
               />
               <h3 className="text-lg font-bold mt-2">{service.title}</h3>
-              <a
+              {/* <a
                 href="/contactus"
                 className="mt-4 inline-block bg-gray-600 text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-blue-700 transition-all duration-300"
               >
                 Contact Us
-              </a>
+              </a> */}
             </motion.div>
           ))}
         </div>
