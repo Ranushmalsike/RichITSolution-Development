@@ -19,7 +19,7 @@ const App: React.FC = () => {
         <Route path="/" element={
           <>
             
-              <div className="">
+              <div className="mt-10">
                 <CustomCarousel />
               </div>
             
