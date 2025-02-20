@@ -53,9 +53,9 @@ const Navbar = () => {
           {/* Profile Dropdown */}
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <Menu as="div" className="relative ml-3">
-              <MenuButton className="flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white">
+              {/* <MenuButton className="flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white">
                 <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" className="h-8 w-8 rounded-full" alt="Profile" />
-              </MenuButton>
+              </MenuButton> */}
               <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right bg-white shadow-lg rounded-md py-1">
                 <MenuItem>
                   {({ active }) => (
